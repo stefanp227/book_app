@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_tag(books_path, method: :get) do %>
+  <%= text_field_tag :term %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+
+<h1>Listing Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cover</th>
+      <th>Genre</th>
+      <th>Page count</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+	<td><%= book.name %></td>      
+	<td><%= image_tag book.cover.url(:thumb) %></td>      
+	<td><%= book.genre %></td>
+        <td><%= book.page_count %></td>
+        <td><%= link_to 'Show', book %></td>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path %>
